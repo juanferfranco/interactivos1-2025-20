@@ -6,14 +6,14 @@ import rehypeMathjax from 'rehype-mathjax';
 
 // https://astro.build/config
 export default defineConfig({
-	base: '/interactivos2-2025-20',
+	base: '/interactivos1-2025-20',
 	markdown: {
 		remarkPlugins: [remarkMath],
 		rehypePlugins: [rehypeMathjax],
 	},
 	integrations: [
 		starlight({
-			title: 'Sistemas Físicos Interactivos 2',
+			title: 'Sistemas Físicos Interactivos 1',
 			defaultLocale: 'root',
 			locales: {
 			  root: { label: 'Español', lang: 'es-ES' },
