@@ -1,9 +1,12 @@
-#### Manejo básico de la memoria
+#### Control de movimiento con micro:bit
 
-**Enunciado**: la memoria en el computador Hack se organiza como una secuencia de direcciones, donde cada dirección almacena un valor de 16 bits. El documento "Machine Language" menciona diferentes modos de direccionamiento (página 60).
+Crea un programa en p5.js que muestre un círculo en la pantalla. Utiliza 
+los botones A y B del micro:bit para controlar la posición en x del círculo en el canvas de p5.js. 
 
-- ¿Qué es el direccionamiento directo? ¿Cómo se usa en el lenguaje ensamblador Hack?
-- ¿Qué significa M=D en lenguaje ensamblador Hack? ¿Y D=M?
-- Explica con tus palabras el concepto de "puntero" en el contexto de la memoria y proporciona un ejemplo sencillo en lenguaje ensamblador Hack. (Puedes usar el ejemplo de la página 61 del documento como inspiración, pero adáptalo a un caso más simple).
+::::caution[📤 Bitácora]
+En tu bitácora:
+* Escribe el enlace a tu programa en el editor de p5.js.
+* Copia el código de tu programa en la bitácora (recuerda insertarlo usando markdown y el lenguaje javascript).
+* Copia el código del micro:bit en la bitácora (recuerda insertarlo usando markdown y el lenguaje python).
+:::
 
-**Entrega**: respuestas a las preguntas y un ejemplo de código en ensamblador que ilustre el concepto de puntero y su uso para acceder a la memoria.

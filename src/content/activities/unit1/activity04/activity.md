@@ -1,10 +1,16 @@
-#### Profundizando en las instrucciones del lenguaje ensamblador
+#### Generando patrones visuales
 
-**Enunciado**: el documento "Machine Language" describe dos tipos de instrucciones en el lenguaje ensamblador Hack: A-instructions y C-instructions (páginas 64-69).
+¿Te parece si exploramos juntos un poco más p5.js?
 
-- ¿Cuál es la función de cada tipo de instrucción?
-- ¿Cómo se representa cada tipo de instrucción en binario?
-- Proporciona al menos 3 ejemplos de cada tipo de instrucción, explicando qué hace cada una. Puedes usar las tablas de las páginas 67 y 69 del documento como referencia para los códigos de operación (comp), destinos (dest) y saltos (jump).
 
-**Entrega**: la solución a cada una de las preguntas planteadas en el enunciado. 
+Vamos a crear un programa en p5.js que genere patrones visuales aleatorios utilizando funciones matemáticas simples (ej. random(), sin(), cos()). Para 
+esta actividade no es necesario usar el micro:bit, solo p5.js.
+
+:::caution[📤 Bitácora]
+Crea tu propio programa en p5.js. En ti bitácora:
+
+* Escribe el enlace a tu programa en el editor de p5.js.
+* Copia el código de tu programa en la bitácora (recuerda insertarlo usando markdown y el lenguaje javascript).
+* Muestra una captura de pantalla del resultado de tu programa.
+:::
 

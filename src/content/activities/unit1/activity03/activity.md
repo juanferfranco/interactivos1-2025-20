@@ -1,11 +1,133 @@
-#### Componentes principales de la arquitectura Hack 
+#### Herramientas y tecnologías
+
+En este curso vas a explorar los conceptos usando principalmente dos herramientas: 
+[micro:bit](https://microbit.org/) y [p5.js](https://p5js.org/). En esta actividad vas a 
+conocer estas herramientas. Te voy a mostrar un ejemplo de un sistema físico interactivo
+implementado con estas herramientas. Luego, vas a intentar replicar este ejemplo.
+
+Ten presente que esta actividad es introductoria y no busca que domines estas herramientas. Vas a seguir 
+los siguientes pasos:
+
+1. Abre una versión actualizada de Google chrome o Microsogt edge.
+2. Abre en una pestaña este sitio [micro:bit editor](https://python.microbit.org/v/3).
+3. Copia en el editor el siguiente código:
+
+``` py
+from microbit import *
+
+uart.init(baudrate=115200)
+display.show(Image.BUTTERFLY)
+
+while True:
+    if button_a.is_pressed():
+        uart.write('A')
+        sleep(500)
+    if button_b.is_pressed():
+        uart.write('B')
+        sleep(500)
+    if accelerometer.was_gesture('shake'):
+        uart.write('C')
+        sleep(500)
+    if uart.any():
+        data = uart.read(1)
+        if data:
+            if data[0] == ord('h'):
+                display.show(Image.HEART)
+                sleep(500)
+                display.show(Image.HAPPY)
+```
+
+4. Conecta el micro:bit a un puerto USB del computador.
+5. Al lado del botón Send to micro:bit hay **tres puntos**. Selecciona Connect.
+6. Selecciona el puerto USB lógico asignado por el sistema operativo al micro:bit. En este
+   caso **mbed Serial Port**.
+7. Si no hay errores. Presiona **Send to micro:bit** y espera que aparezca una mariposa en 
+el display de este. Eso quiere decir que el programa anterior ya estará cargado en la memoria 
+del micro:bit.
+8. Ahora abre en otra pestaña el [editor de p5.js](https://p5js.org/).
+9. Observa que al lado del nombre del archivo: sketch.js hay una flecha. Si das click 
+podrás observar tres archivos: index.html, sketch.js, style.css.
+10. Abre el archivo index.html e incluye la siguiente línea antes de la tag **link**. Esta línea 
+permite incluir una biblioteca que facilita la comunicación USB serial entre el computador 
+y el micro:bit.
+
+``` js
+<script src="https://unpkg.com/@gohai/p5.webserial@^1/libraries/p5.webserial.js"></script>
+```
+11. Ahora en el archivo sketch.js copia el siguiente código:
+
+``` js
+
+let port;
+let connectBtn;
+
+function setup() {
+    createCanvas(400, 400);
+    background(220);
+    port = createSerial();
+    connectBtn = createButton('Connect to micro:bit');
+    connectBtn.position(80, 300);
+    connectBtn.mousePressed(connectBtnClick);
+    let sendBtn = createButton('Send Love');
+    sendBtn.position(220, 300);
+    sendBtn.mousePressed(sendBtnClick);
+    fill('white');
+    ellipse(width / 2, height / 2, 100, 100);
+}
+
+function draw() {
+
+    if(port.availableBytes() > 0){
+        let dataRx = port.read(1);
+        if(dataRx == 'A'){
+            fill('red');   
+        }
+        else if(dataRx == 'B'){
+            fill('yellow'); 
+        }
+        else{
+            fill('green'); 
+        }
+        background(220);
+        ellipse(width / 2, height / 2, 100, 100);
+        fill('black');
+        text(dataRx, width / 2, height / 2);
+    }    
 
 
-**Enunciado**: usando el simulador del computador Hack y el documento ["Machine Language"](https://www.nand2tetris.org/_files/ugd/44046b_7ef1c00a714c46768f08c459a6cab45a.pdf) (páginas 62-72), identifica los componentes principales de la arquitectura Hack:
+    if (!port.opened()) {
+        connectBtn.html('Connect to micro:bit');
+    } 
+    else {
+        connectBtn.html('Disconnect');
+    }
+}
 
-- CPU: ¿Cuáles son sus partes principales? (ALU, registros A y D, PC...).
-- Memoria: ¿Cómo se organiza la memoria en el computador Hack? (RAM, ROM, direcciones...). ¿Qué es un mapa de memoria?
-- Registros A y D: ¿Cuál es la función de cada uno? ¿En qué se diferencian?
-- Contador de programa (PC): ¿Cuál es su función en el ciclo Fetch-Decode-Execute?
+function connectBtnClick() {
+    if (!port.opened()) {
+        port.open('MicroPython', 115200);
+    } else {
+        port.close();
+    }
+}
 
-**Entrega**: un diagrama de la arquitectura Hack con sus componentes principales etiquetados y una breve descripción de la función de cada componente. Para el diagrama puedes usar la herramienta [draw.io](https://app.diagrams.net/).
+function sendBtnClick() {
+    port.write('h');
+}
+
+```
+
+12. Dale click a Play sketch.
+13. Dale ahora click a Connect to micro:bit
+14. Selecciona el puerto mbed Serial Port.
+15. Presiona los botones A y B del micro:bit.
+16. Sacude el micro:bit. ¿Qué pasa?
+17. Presiona el botón Send Love. ¿Qué pasa?
+
+:::caution[📤 Bitácora]
+Es tu turno ahora de reproducir el ejemplo anterior. La idea es que te familiarices con
+las herramientas y puedas replicar el ejemplo. Luego de hacer el ejercicio, responde la siguiente pregunta:
+
+En este sistemas físico interactivo identifica los inputs, outputs y el proceso.
+
+:::

@@ -1,10 +1,11 @@
-#### Operaciones aritméticas básicas
+#### Generando de imágenes en micro:bit
 
-Enunciado: Escribe un programa en ensamblador Hack que realice las siguientes operaciones:
+Crea un programa en p5.js con cuatro botones. Cada botón le indicará al micro:bit qué imagen debe mostrar.
 
-- Guarda el valor 5 en el registro A.
-- Guarda el valor 10 en el registro D.
-- Suma el contenido del registro A y el registro D, y guarda el resultado en el registro D.
-- Resta el valor 3 al contenido del registro D y guarda el resultado en la memoria en la dirección 10.
-
-**Entrega**: el código del programa en ensamblador Hack y una captura de pantalla del simulador mostrando el estado final de los registros y la memoria (para verificar los resultados).
+::::caution[📤 Bitácora]
+En tu bitácora:
+* Escribe el enlace a tu programa en el editor de p5.js.
+* Copia el código de tu programa en la bitácora (recuerda insertarlo usando
+markdown y el lenguaje javascript).
+* Copia el código del micro:bit en la bitácora (recuerda insertarlo usando markdown y el lenguaje python).
+:::

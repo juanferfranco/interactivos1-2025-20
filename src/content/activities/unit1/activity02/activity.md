@@ -1,13 +1,17 @@
-#### Explorando la arquitectura del computador Hack
+#### ¿Qué es el diseño y el arte generativos?
 
-**Enunciado**: vas a reflexionar la siguiente pregunta. Puedes usar una IA para explorar el asunto, para que te ayude 
-a pensar. Trata de conversar con la IA para explorar tus pensamientos y posibilidades. PERO POR FAVOR, no copies y pegues 
-lo que te dice la IA. La idea es que tu reflexiones, hagas el ejercicio de síntesis mental y escribas tus conclusiones.
+Vamos a revisar juntos este material del diseñador Alemán 
+[Patrick Hübner](https://www.patrik-huebner.com/datadesigndictionary/generative-design/), que nos ayudará a entender 
+mejor el concepto de diseño generativo.
 
-- ¿Por qué es importante entender el lenguaje ensamblador para un ingeniero en diseño de entretenimiento digital?
-- ¿Cómo crees que el conocimiento de bajo nivel (hardware y lenguaje ensamblador) puede influir en el diseño y optimización de experiencias interactivas?
-- Describe al menos dos ejemplos de videojuegos, aplicaciones interactivas, animación procedural o construcción de herramientas para soportar flujos de trabajo artísticos donde el conocimiento de ensamblador podría ser crucial para su desarrollo o rendimiento.
+Patrick Hübner propone una forma de diseño basada en un método muy simple: [input-process-output](https://www.patrik-huebner.com/method/).
 
-**Entrega**: un texto breve para cada pregunta. No olvides reflexionar las preguntas desde tus intereses (recuerda que puedes hablar 
-con una IA para explorar).
+Otro ejemplo interesante que mezcla arte y sistemas físicos interactivos es el trabajo de 
+la artista generativa [Licia He](https://youtu.be/jmzVt61-mEE?si=xqMoaVi1U-E1LWpi).  
+
+:::caution[📤 Bitácora] 
+Luego de este ejercicio, define en tus propias palabras
+* ¿Qué es el diseño/arte generativo?
+* ¿Cómo podrías aplicar lo que has visto en tu perfil profesional?
+:::
 

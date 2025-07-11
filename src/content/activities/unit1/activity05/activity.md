@@ -1,10 +1,9 @@
-#### El ciclo de instrucción paso a paso
+#### Interacción básica con micro:bit
 
-**Enunciado**: elige uno de los programas que modificaste en las actividades previas. Usando el simulador, ejecuta el programa paso a paso y documenta cada ciclo Fetch-Decode-Execute. Para cada instrucción:
+Vamos a crear juntos un programa en p5.js que interactúe con un micro:bit. La idea es que el programa 
+en p5.js que muestre un cuadrado en la pantalla que cambie de color al presionar un botón del micro:bit.
 
-- ¿Qué valor tiene el PC al inicio del ciclo?
-- ¿Qué instrucción se busca en la memoria?
-- ¿Cómo se decodifica la instrucción?
-- ¿Qué operación se realiza en la fase Execute? ¿Cómo cambian los valores de los registros A, D y M (memoria)?
+::::caution[📤 Bitácora]
+En tu bitácora: explica cómo funciona el sistema físico interactivo que acabamos de crear.
+:::
 
-**Entrega**: una tabla que documente el ciclo Fetch-Decode-Execute para cada instrucción del programa elegido.
