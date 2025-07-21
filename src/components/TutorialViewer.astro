@@ -14,14 +14,14 @@
 ---
 
 <div class="tutorial-viewer-container" client:load>
+  <div class="tutorial-navigation">
+    <button id="tutorial-prev-button" disabled>← Anterior</button>
+    <span id="tutorial-page-indicator">1/1</span>
+    <button id="tutorial-next-button" disabled>Siguiente →</button>
+  </div>
   <div class="tutorial-left-panel">
     <div id="tutorial-text-content" class="tutorial-content-display">
       <!-- El contenido de texto de la diapositiva actual se insertará aquí con JS -->
-    </div>
-    <div class="tutorial-navigation">
-      <button id="tutorial-prev-button" disabled>← Anterior</button>
-      <span id="tutorial-page-indicator">1/1</span>
-      <button id="tutorial-next-button" disabled>Siguiente →</button>
     </div>
   </div>
 
