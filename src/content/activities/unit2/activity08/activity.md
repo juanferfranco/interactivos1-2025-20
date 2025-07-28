@@ -1,55 +1,16 @@
-#### ¿Quién cometió el crimen?
+#### Feedback
 
-**Enunciado**: este es del tipo de ejercicios que llamo ¿Quién cometió 
-el crimen? La idea con esta clase de ejercicio es que observes detenidamente, 
-experimentes y trates de descubrir pistas que te permitan entender qué está pasando.
+**Mejorando la experiencia: tu feedback es clave**
 
-- Toma cualquiera de los programas anteriores en lenguaje ensamblador y cárgalo 
-en el simulador. Una vez lo hagas, visualiza el programa en lenguaje de máquina. 
-Esto lo puedes hacer en las opciones de la ROM en el simulador cambiando de 
-**asm** a **bin**.
+Mi objetivo es crear la mejor experiencia de aprendizaje posible, y tu perspectiva es esencial para lograrlo. Este es tu espacio para darme feedback honesto y directo sobre esta unidad, lo que me ayudará a refinarla para futuros estudiantes.
 
-- Ahora considera el siguiente programa en lenguaje de máquina. Salva el programa 
-en un archivo "test.hack" y cárgalo en el simulador. Una vez cargado lo puedes 
-visualizar en formato **asm**.
+:::caution[📤 Bitácora]
 
-```
-0100000000000000
-1110110000010000
-0000000000010000
-1110001100001000
-0110000000000000
-1111110000010000
-0000000000010011
-1110001100000101
-0000000000010000
-1111110000010000
-0100000000000000
-1110010011010000
-0000000000000100
-1110001100000110
-0000000000010000
-1111110010101000
-1110101010001000
-0000000000000100
-1110101010000111
-0000000000010000
-1111110000010000
-0110000000000000
-1110010011010000
-0000000000000100
-1110001100000011
-0000000000010000
-1111110000100000
-1110111010001000
-0000000000010000
-1111110111001000
-0000000000000100
-1110101010000111
-```
+Responde a las siguientes preguntas con total sinceridad. ¡Cada comentario es valioso!
 
-- Analiza con el simulador qué hace el programa.
-- Explica cómo funciona este programa.
-
-**Entrega**: en tu bitácora el análisis solicitado del programa.
-
+1.  **Continuar**: ¿Qué actividad, explicación o ejemplo de esta unidad te ayudó más a entender el poder de las máquinas de estados? ¿Qué elemento consideras que es indispensable y debería mantener?
+2.  **Dejar de hacer**: ¿Hubo algún paso o actividad que te pareció confuso, innecesariamente complicado o que aportó poco a tu aprendizaje? ¿Qué cambiarías o eliminarías?
+3.  **Empezar a hacer**: ¿Qué te habría ayudado a entender mejor?
+4.  **Ritmo y dificultad**: En una escala del 1 (muy fácil) al 5 (muy difícil), ¿Cómo calificarías la dificultad de pasar del análisis de un programa (Actividad 03) al diseño desde cero de uno complejo (Actividad 04 y 05)? ¿Por qué?
+5.  **Comentario adicional**: ¿Hay algo más que te gustaría compartir sobre tu proceso de aprendizaje en esta unidad? ¿Algún momento de frustración o de "¡Aha!" que quieras destacar?
+:::

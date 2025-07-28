@@ -1,24 +1,14 @@
-#### Experimenta con arreglos
+#### Coevaluación
 
-**Enunciado**: los arreglos son colecciones de datos en la memoria. 
+**Aprendiendo juntos: coevaluación constructiva**
 
-Considera el siguiente programa
+Diseñar y programar es solo una parte del trabajo de un ingeniero; analizar y dar feedback sobre el trabajo de otros es igualmente importante. En esta actividad, revisarás el diseño y la implementación de la bomba temporizada de un compañero para ayudarle a mejorar y para ganar una nueva perspectiva.
 
-``` cpp
+:::caution[📤 Bitácora]
 
-int arr[] = {1,2,3,4,5,6,7,8,9,10};
-int sum = 0;
-
-for (int j = 0; j < 10; j++) {
-    sum = sum + arr[j];
-}
-
-```
-
-- Implementa el programa anterior en lenguaje ensamblador.
-- Considera que los datos del arreglo están almacenados desde la dirección 16. Puedes inicializar 
-manualmente el arreglo. 
-- Es fundamental que hagas la simulación paso a paso y analices con detenimiento el funcionamiento 
-del programa.
-
-**Entrega**: la solución al problema anterior.
+1.  Encuentra a un compañero de trabajo.
+2.  Intercambien las URLs de sus bitácoras de aprendizaje.
+3.  Revisa con atención las entradas de tu compañero para las Actividades 04 (diagrama de la bomba) y 05 (código y pruebas).
+4.  Analiza de manera crítica el diseño y la implementación de tu compañero y deja un comentario de retroalimentación específico y constructivo.
+5.  Conversa con tu compañero sobre su diseño y código, y discutan sus comentarios.
+:::

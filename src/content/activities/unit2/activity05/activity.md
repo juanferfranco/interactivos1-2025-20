@@ -1,31 +1,11 @@
-##### Lectura usando punteros
+#### Implementando la Bomba Temporizada
 
-**Enunciado**: ahora vas a usar un puntero para leer la posición de memoria a la que este apunta, es decir, vas a leer por medio del puntero la variable cuya dirección está almacenada en él.
+Implementa el código para la bomba temporizada usando mycropython y el micro:bit, incluyendo la funcionalidad básica: configuración del tiempo, cuenta regresiva y detonación.
 
-``` cpp
-int a = 10;
-int b = 5;
-int *p;
-p = &a;
-b = *p;
-```
+:::caution[📤 Bitácora]
+Reporta en un tu bitácora lo siguiente:
+1. El código que implementa la bomba temporizada.
+2. La definición de los vectores de prueba básicos que permiten verificar el 
+correcto funcionamiento del programa.
+:::
 
-En este caso: 
-
-``` cpp
-b = *p;
-```
-
-el código anterior hace que el valor de b cambie de 5 a 10 porque p apunta a **a** y con *p a la derecha del igual estás leyendo el contenido de la variable apuntada.
-
-- Traduce el programa el siguiente programa a ensamblador y no olvides simular
-
-``` cpp
-int a = 10;
-int b = 5;
-int *p;
-p = &a;
-b = *p;
-```
-
-**Entrega**: la traducción a ensamblador.

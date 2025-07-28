@@ -1,58 +1,28 @@
-#### Escritura usando punteros
+#### Diseño de la lógica de una bomba temporizada
 
-**Enunciado**: un puntero es una variable que almacena la dirección de memoria de otra variable. Observa el siguiente programa escrito en C++:
+Diseña la máquina de estados para solucionar el siguiente problema:
 
-``` cpp
-int a = 10;
-int* p;
-p = &a;
-*p = 20;
-```
+En un escape room se requiere construir una aplicación para controlar una bomba temporizada. El circuito de control de la bomba está compuesto por cuatro sensores, denominados UP (botón A), DOWN (botón B), touch (botón de touch) y ARMED (el gesto de shake de acelerómetro). Tiene dos actuadores o dispositivos de salida que serán un display (la pantalla de LEDs) y un speaker.
 
-El programa anterior modifica el contenido de la variable **a** por medio de la variable **p**. **p** es un puntero porque almacena la dirección de memoria de la variable **a**. En este caso el valor de la variable **a** será 20 luego de ejecutar *p = 20;. 
+**El controlador funciona así**:
 
-Ahora analiza con detenimiento:
+Inicia en modo de configuración, es decir, sin hacer cuenta regresiva aún, la bomba está desarmada. El valor inicial del conteo regresivo es de 20 segundos.  
 
-- ¿Cómo se **declara** un puntero en C++? 
+En el modo de configuración, los pulsadores UP y DOWN permiten aumentar o disminuir el tiempo inicial de la bomba.  
 
-``` cpp
-int* p;
-```
+El tiempo se puede programar entre 10 y 60 segundos con cambios de 1 segundo. No olvides usar 
+utime.ticks_ms() para medir el tiempo. Además, 1 segundo equivale a 1000 milisegundos.  
 
-**p** es una variable que almacenará la dirección de otra variable. Dicha variable almacenará número enteros.
+Hacer shake (ARMED) arma la bomba, es decir, inicia el conteo regresivo.  
 
-- ¿Cómo se **define** (nota que antes preguntamos cómo se **declara**) un puntero en C++? 
+Una vez armada la bomba, comienza la cuenta regresiva que será visualizada en la pantalla de LED
 
-``` cpp
-p = &a;. 
-```
+La bomba explotará (speaker) cuando el tiempo llegue a cero. 
 
-Definir el puntero es **inicializar** el valor del puntero, es decir, guardar la dirección de una variable. En este caso p contendrá la dirección de a o podemos decir que p apunta a **a**
+Para volver a modo de configuración deberás tocar el botón touch.
 
-- ¿Cómo se almacena en C++ la dirección de memoria de una variable? Con el operador **&**. 
+:::caution[📤 Bitácora]
+Construye un diagrama detallado de la máquina de estados, incluyendo 
+estados, eventos, transiciones y acciones.
+:::
 
-``` cpp
-p = &a;
-```
-
-- ¿Cómo se escribe el contenido de la variable a la que apunta un puntero? Con el operador *. 
-
-``` cpp
-*p = 20;
-```
-
-En este caso como **p** contiene la dirección de **a**. Por tanto, se está modificando el valor 
-de la variable **a** por medio de **p**.
-
-Ahora tu misión será convertir este programa a ensamblador:
-
-``` cpp
-int a = 10;
-int* p;
-p = &a;
-*p = 20;
-```
-
-- Por favor, te ruego que verifiques con el simulador. No olvides que p debe guardar la dirección de **a** 
-
-**Entrega**: la solución al problema anterior.

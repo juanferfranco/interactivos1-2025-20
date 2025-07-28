@@ -1,13 +1,52 @@
-#### El Poder del Bajo Nivel
+#### Analizando un programa con una máquina de estados simple
 
-**Enunciado**: reflexiona sobre las siguientes preguntas y documenta tus respuestas en tu bitácora:
+Analicemos juntos el siguiente código identificando estados, eventos y acciones. Responde las preguntas planteadas.
 
-- ¿Por qué crees que es importante para un ingeniero en diseño de entretenimiento digital comprender la programación en ensamblador, sabiendo que es poco probable que te dediques profesionalmente a 
-programar en este nivel?
+``` py
 
-- ¿Qué ventajas y desventajas ofrece la programación en ensamblador en comparación con lenguajes de alto nivel como Python o Javascript, C++, C#?
+from microbit import *
+import utime
 
-- ¿Cómo se relaciona el conocimiento de ensamblador con el rendimiento y la optimización en el desarrollo de aplicaciones interactivas interactivas?
+class Pixel:
+    def __init__(self,pixelX,pixelY,initState,interval):
+        self.state = "Init"
+        self.startTime = 0
+        self.interval = interval
+        self.pixelX = pixelX
+        self.pixelY = pixelY
+        self.pixelState = initState
 
-**Entrega**: entrada en la bitácora de aprendizaje con la reflexión sobre las preguntas planteadas.
+    def update(self):
+
+        if self.state == "Init":
+            self.startTime = utime.ticks_ms()
+            self.state = "WaitTimeout"
+            display.set_pixel(self.pixelX,self.pixelY,self.pixelState)
+
+        elif self.state == "WaitTimeout":
+            if utime.ticks_diff(utime.ticks_ms(),self.startTime) > self.interval:
+                self.startTime = utime.ticks_ms()
+                if self.pixelState == 9:
+                    self.pixelState = 0
+                else:
+                    self.pixelState = 9
+                display.set_pixel(self.pixelX,self.pixelY,self.pixelState)
+
+pixel1 = Pixel(0,0,0,1000)
+pixel2 = Pixel(4,4,0,500)
+
+while True:
+    pixel1.update()
+    pixel2.update()
+
+```
+
+:::caution[📤 Bitácora] 
+Escribe en tu bitácora lo siguiente:
+
+1. Describe detalladamente cómo funciona este ejemplo.
+2. ¿Cuáles son los estados en el programa? 
+3. ¿Cuáles son los eventos/inputs en el programa?
+4. ¿Cuáles son las acciones en el programa?
+:::
 
