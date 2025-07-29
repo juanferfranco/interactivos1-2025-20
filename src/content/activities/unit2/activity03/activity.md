@@ -14,6 +14,10 @@ Imagina un programa para el micro:bit que muestra diferentes expresiones en la p
 
 Sin embargo, si en cualquier momento se presiona el botón A mientras la cara feliz o la sonriente están en pantalla, el micro:bit interrumpe el ciclo y muestra inmediatamente la cara triste o feliz, respectivamente. Si se presiona el botón A mientras la cara triste está en pantalla, el dispositivo cambia a la expresión sonriente. Así, el programa combina una secuencia visual predefinida con la capacidad de responder rápidamente a la interacción del usuario.
 
+**Modelando del programa con una máquina de estados**
+
+![State Machine Model](../../../../assets/stateMachineExample.webp)
+
 ``` py
 from microbit import *
 import utime
@@ -77,11 +81,6 @@ while True:
             current_state = STATE_HAPPY
 
 ```
-
-**Modelando el programa con un diagrama**
-
-![State Machine Model](../../../../assets/stateMachineExample.webp)
-
 
 :::caution[📤 Bitácora]
 En tu bitácora:
