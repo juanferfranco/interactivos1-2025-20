@@ -11,11 +11,270 @@ aquí puede cambiar. NO INICIES A TRABAJAR AÚN</Aside>
 
 ## Introducción 📜
 
+En esta unidad vas a seguir explorando la integración entre micro:bit y p5.js,  
+al tiempo que profundizarás en la técnica de programación con máquinas 
+de estado. Volverás a practicar dicha técnica con el micro:bit, pero 
+también en p5.js. 
+
+Te preguntarás ¿Por qué tanta insistencia del profe con esta técnica? Y la 
+razón es que ella te permitirá lograr en tus aplicaciones escalabilidad, 
+en términos de conconcurrencia, es decir, permitirá que una aplicación tenga 
+múltiples **TAREAS** haciendo al mismo tiempo varias cosas.
 
 ## Set: ¿Qué aprenderás en esta unidad? 💡
 
+Vas a seguir practicando la técnica de programación con máquinas de estado y a 
+transferirla a p5.js.
+
+### Actividad 01
+
+#### Volvamos a la actividad del semáforo
+
+En la unidad anterior construiste un semáforo con el micro:bit (cierto? pero si no o tu 
+implementación no estuvo bien, entonces tienes una nueva oportunidad). Ahora te pediré 
+que hagas una modificación. Esta vez construirás tres semáforos concurrente en el micro:bit. 
+
+Cada uno de los semáforos tendrá unos tiempos en rojo, amarillo y verde diferentes. Recuerda 
+que el micro:bit tiene un solo display de 5x5 leds. Además, todos los leds son de color rojo. 
+Así que tendrás que ser creativo para representar los colores amarillo y verde.
+
+Los tiempos para los semáforos serán los siguientes:
+
+- Semáforo 1: 5 segundos en rojo, 2 segundos en amarillo y 3 segundos en verde.
+- Semáforo 2: 3 segundos en rojo, 1 segundo en amarillo y 2 segundos en verde.
+- Semáforo 3: 4 segundos en rojo, 3 segundos en amarillo y 2 segundos en verde.
+
+La estructura de tu programa será similar a la siguiente:
+
+``` py
+
+class Semaforo:
+    .
+    .
+    .
+
+semaforo1 = Semaforo(...)
+semaforo2 = Semaforo(...)
+semaforo3 = Semaforo(...)
+
+while True:
+    semaforo1.update()
+    semaforo2.update()
+    semaforo3.update()
+```
+
+1. Qué ventajas tiene usar una **clase (class)** en este caso para representar 
+un semáforo?
+
+2. Puedes ver cómo la técnica de programación con máquinas de estado y el uso de funciona 
+no bloqueantes te permite que varios semáforos funcionen al mismo tiempo?
+
 ## Seek: Investigación 🔎
+
+### Actividad 02
+
+#### Bomba 2.0
+
+La técnica de máquina de estados no solo permite la concurrencia sino también la escalabilidad 
+en término de nuevas funcionalidades.
+
+Vas a retomar la bomba de la unidad anterior y le adicionarás algunas funcionalidades:
+
+- Una vez la bomba esté armada es posible desactivarla con la secuencia botón A, botón B, botón A. 
+- Si la secuencia se ingresa correctamente la bomba pasará de nuevo al modo de configuración de lo 
+contrario continuará la fatal cuenta regresiva.
+
+### Actividad 03
+
+#### Bomba 3.0
+
+Seguiremos adicionando funcionalidades a la bomba.
+
+- Además de controlar la bomba con los sensores del micro:bit, también podrás 
+controlarla desde el puerto serial, es decir, se controla desde dos fuentes 
+diferentes.
+- Debes hacer un refactoring a tu código. La idea es que ahora la máquina 
+de estados de la bomba no lea directamente los sensores del micro:bit, sino 
+que reciba **EVENTOS GENÉRICOS**. De esta manera, la máquina de estados
+de la bomba no sabrá de dónde vienen los eventos, si del micro:bit o del puerto
+serial. 
+
+¿Cómo puedes hacer esto? 
+
+Puedes crear una variable que represente el evento que ocurrió. Cuando el evento 
+ocurre escribes la variable con un valor representativo del evento. Además, esa 
+variable debe tener un valor que indique que no ha ocurrido un evento.
+
+Es importante que consumas el evento, es decir, una vez la máquina de estados
+de la bomba reciba el evento, la variable que representa el evento debe tomar 
+el valor que inidique que no hay evento.
+
+Por ejemplo, la variable eventoA tomará el valor 0 si no hay evento 
+y 'A' si se presionó el botón o se recibió la orden por el puerto serial.
+
+En resumen: cada que ocurra un evento, debes almacenar el evento en la variable 
+que lo represeta y cuando lo consumas debes borrarlo.
+
+Estructura de tu programa así:
+
+``` py
+
+class TareaBomba:
+    .
+    .
+    .
+
+class TareaEventos:
+    .
+    .
+    .
+
+tareaBomba = TareaBomba()
+tareaEventos = TareaEventos()
+
+tareaBomba.init()
+tareaEventos.init()
+
+while True:
+    tareaBomba.update()
+    tareaEventos.update()
+```
+
+¿Cómo enviarás los eventos del serial? 
+
+Puedes usar [esta aplicación](https://juanferfranco.github.io/serialTerminal/) que te permitirá enviar 
+datos por el puerto serial.
+
+### Actividad 04
+
+#### Controla la bomba desde tu sketch en p5.js
+
+En la actividad anterior controlaste la bomba desde una terminal serial. Ahora 
+vas a controlar la bomba desde tu sketch en p5.js.
+
+### Actividad 05
+
+#### Es momento de modelar la bomba y definir vectores de prueba
+
+Ahora es momento de modelar la bomba con una máquina de estados y definir una 
+tabla con vectores de prueba.
+
+:::caution[📤 Bitácora] 
+1. Construye el modelo de la bomba 3.0. Como ya tienes el código puedes tener un modelo
+muy preciso.
+2. Crear una tabla con los vectores de prueba. La tabla debe tener 4 columnas por vector y 
+puedes agrupar vectores en un gran vector. Las columnas son:
+   - Estado inicial
+   - Evento disparador
+   - Acciones
+   - Estado final
+:::
 
 ## Apply: Aplicación 🛠
 
+### Actividad 06
+
+#### Crear la bomba en p5.js
+
+En esta actividad vas a transferir la técnica de programación con máquinas de estado a p5.js. 
+
+Crea la bomba versión 2.0 en p5.js. No olvides que al aplicar la técnica de máquinas de estado 
+en micro:bit se evitaba colocar acciones por fuera de los eventos. En el caso de p5.js será 
+necesario que tengas acciones por fuera de eventos porque es necesario dibujar el canvas 
+en cada frame.
+
+:::caution[📤 Bitácora] 
+
+NO GENERES CÓDIGO CON IA. Este es un ejercicio de transferencia de aprendizaje. Ya sabes 
+la técnica de programación con máquinas de estado y cómo se aplica en el micro:bit. Ahora debes 
+transferir ese conocimiento a p5.js.
+
+1. El código fuente de la bomba en p5.js. Debes utilizar la técnica de máquina de estados 
+y la biblioteca de manejo de serial que estamos trabajando en el curso.
+:::
+
+### Actividad 07
+
+#### Bomba en p5.js + controles del micro:bit
+
+Vas a practicar de nuevo la técnica de máquina de estados y eventos genéricos, pero esta vez
+vas a controlar la bomba desde el micro:bit y desde p5.js. TEN PRESENTE que la bomba estará 
+corriendo en p5.js, pero deberás controlarla también desde los botones del micro:bit mediante 
+el puerto serial.
+
+
+:::caution[📤 Bitácora] 
+
+NO GENERES CÓDIGO CON IA. Este es un ejercicio de transferencia de aprendizaje. Ya sabes 
+la técnica de programación con máquinas de estado y cómo se aplica en el micro:bit. Ahora debes 
+transferir ese conocimiento a p5.js.
+
+1. Código p5.js 
+2. Enlace al editor de p5.js con tu código.
+3. Código del micro:bit.
+:::
+
+
 ## Reflect: Consolidación y metacognición 🤔
+
+### Actividad 08
+
+#### Autoevaluación
+
+El objetivo aquí es doble. Primero, que recuperes de tu memoria los conceptos de diseño y 
+programación con máquinas de estados sin ayuda externa. Este esfuerzo por recordar 
+(práctica de recuperación) es clave para un aprendizaje duradero. Segundo, que reflexiones 
+sobre tu proceso de diseño y depuración, una habilidad esencial para cualquier ingeniero.
+
+:::caution[📤 Bitácora]
+
+En tu bitácora, sin consultar tu código, diagramas o notas, responde a las siguientes preguntas con 
+us propias palabras. Concéntrate en el esfuerzo de recordar, no en la perfección de la respuesta.
+
+**Parte 1: recuperación de conocimiento (Retrieval Practice)**
+
+1.  Describe con tus palabras qué es una máquina de estados. ¿Cuáles son sus cuatro componentes 
+fundamentales que has utilizado en esta unidad?
+2.  Explica por qué la técnica de máquina de estados es tan útil para gestionar la "concurrencia" 
+(atender varios eventos y tareas "al mismo tiempo") en un dispositivo con un solo hilo de ejecución 
+como el micro:bit o en p5.js. ¿Qué problema soluciona en comparación con usar funciones como `sleep()`?
+3.  Imagina que tienes que añadir una nueva funcionalidad a la bomba: si se recibe un evento 
+especial (por ejemplo, una combinación de botones o un comando serial) *mientras* la cuenta 
+regresiva está activa, el tiempo se reduce a la mitad. ¿Cómo modificarías tu diagrama de máquina 
+de estados para incluir este nuevo evento y acción?
+4.  Explica qué es un "vector de prueba" y por qué es una herramienta crucial para verificar que 
+una máquina de estados funciona como se espera.
+
+**Parte 2: reflexión sobre tu proceso (Metacognición)**
+
+1.  ¿Qué parte del diseño de la bomba te resultó más desafiante: crear el diagrama de estados o 
+traducir ese diagrama a código? ¿Por qué?
+2.  Describe un error o "bug" que encontraste al implementar tu programa. ¿Cómo te ayudó pensar en 
+términos de estados, eventos y transiciones a identificar y solucionar el problema?
+3.  El problema de la bomba era complejo. ¿Qué estrategia usaste para abordarlo? ¿Comenzaste 
+con una versión simple y añadiste funcionalidades poco a poco?
+4.  Ahora que entiendes el patrón de máquina de estados, ¿En qué otro tipo de proyecto o 
+sistema de entretenimiento digital crees que podrías aplicarlo?
+:::
+
+### Actividad 09
+
+#### Feedback
+
+Mi objetivo es crear la mejor experiencia de aprendizaje posible, y tu perspectiva es esencial para 
+lograrlo. Este es tu espacio para darme feedback honesto y directo sobre esta unidad, lo que me 
+ayudará a refinarla para futuros estudiantes.
+
+:::caution[📤 Bitácora]
+
+Responde a las siguientes preguntas con total sinceridad. ¡Cada comentario es valioso!
+
+1.  **Continuar**: ¿Qué actividad, explicación o ejemplo de esta unidad te ayudó más a entender el poder de 
+las máquinas de estados? ¿Qué elemento consideras que es indispensable y debería mantener?
+2.  **Dejar de hacer**: ¿Hubo algún paso o actividad que te pareció confuso? ¿Qué cambiarías o eliminarías?
+3.  **Empezar a hacer**: ¿Qué te habría ayudado a entender mejor?
+4.  **Ritmo y dificultad**: En una escala del 1 (muy fácil) al 5 (muy difícil), ¿Cómo calificarías la 
+dificultad de pasar del análisis de un programa a diseñar y programar uno complejo? ¿Por qué?
+5.  **Comentario adicional**: ¿Hay algo más que te gustaría compartir sobre tu proceso de aprendizaje en 
+esta unidad? ¿Algún momento de frustración o de "¡Aha!" que quieras destacar?
+:::
