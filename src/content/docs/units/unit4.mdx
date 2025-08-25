@@ -10,6 +10,16 @@ import { Aside } from '@astrojs/starlight/components';
 Unidad en construcción. Aún no inicies a trabajar en ella.
 </Aside>
 
+<Aside type="danger">
+NO USES IA PARA REALIZAR LAS ACTIVIDADES DE ESTA UNIDAD  
+
+Esta unidad te propone un viaje cognitivo de descubrimiento. 
+Descubrimos mediante la investigación y la experimentación. 
+No se trata del resultado, sino del proceso. Es el proceso 
+lo que transforma tu cerebro. Es la reflexión y la conexión 
+de ideas lo que genera el aprendizaje.
+</Aside>
+
 
 ## Introducción 📜
 
@@ -326,6 +336,7 @@ function preload() {
 
 let port;
 let connectBtn;
+let connectionInitialized = false;
 let microBitConnected = false;
 
 const STATES = {
@@ -348,6 +359,7 @@ function setup() {
 function connectBtnClick() {
   if (!port.opened()) {
     port.open("MicroPython", 115200);
+    connectionInitialized = false;
   } else {
     port.close();
   }
@@ -406,6 +418,7 @@ function preload() {
 
 let port;
 let connectBtn;
+let connectionInitialized = false;
 let microBitConnected = false;
 
 const STATES = {
@@ -427,6 +440,7 @@ function setup() {
 function connectBtnClick() {
   if (!port.opened()) {
     port.open("MicroPython", 115200);
+    connectionInitialized = false;
   } else {
     port.close();
   }
@@ -469,6 +483,7 @@ function preload() {
 
 let port;
 let connectBtn;
+let connectionInitialized = false;
 let microBitConnected = false;
 
 const STATES = {
@@ -490,6 +505,7 @@ function setup() {
 function connectBtnClick() {
   if (!port.opened()) {
     port.open("MicroPython", 115200);
+    connectionInitialized = false;
   } else {
     port.close();
   }
@@ -503,6 +519,12 @@ function draw() {
   } else {
     microBitConnected = true;
     connectBtn.html("Disconnect");
+
+    if (port.opened() && !connectionInitialized) {
+      port.clear();
+      connectionInitialized = true;
+    }
+
     if (port.availableBytes() > 0) {
       let data = port.readUntil("\n");
       if (data) {
@@ -659,6 +681,7 @@ function preload() {
 
 let port;
 let connectBtn;
+let connectionInitialized = false;
 let microBitConnected = false;
 
 const STATES = {
@@ -686,6 +709,7 @@ function setup() {
 function connectBtnClick() {
   if (!port.opened()) {
     port.open("MicroPython", 115200);
+    connectionInitialized = false;
   } else {
     port.close();
   }
@@ -719,6 +743,12 @@ function draw() {
   } else {
     microBitConnected = true;
     connectBtn.html("Disconnect");
+
+    if (port.opened() && !connectionInitialized) {
+      port.clear();
+      connectionInitialized = true;
+    }
+
     if (port.availableBytes() > 0) {
       let data = port.readUntil("\n");
       if (data) {
@@ -801,6 +831,7 @@ function preload() {
 
 let port;
 let connectBtn;
+let connectionInitialized = false;
 let microBitConnected = false;
 
 const STATES = {
@@ -828,6 +859,7 @@ function setup() {
 function connectBtnClick() {
   if (!port.opened()) {
     port.open("MicroPython", 115200);
+    connectionInitialized = false;
   } else {
     port.close();
   }
@@ -865,6 +897,12 @@ function draw() {
   } else {
     microBitConnected = true;
     connectBtn.html("Disconnect");
+
+    if (port.opened() && !connectionInitialized) {
+      port.clear();
+      connectionInitialized = true;
+    }
+
     if (port.availableBytes() > 0) {
       let data = port.readUntil("\n");
       if (data) {
@@ -1034,6 +1072,11 @@ while True:
 ## Evidencias 🗂️
 
 <Aside type="note" title="RUBRICA!">
+- El plazo máximo de entrega es 11 minutos antes de la segunda sesión 
+presencial de la semana del 1 de septiembre de 2025. En ese momento 
+cerraré la rama con la bitácora y haremos la evaluación. En este espacio 
+es fundamental tu asistencia para realizar la evaluación de tu trabajo 
+con el profesor.
 - Cualquier omisión en la sección código de la bitácora será penalizada con 
 1 unidad en la nota final.
 - Si tu código no reproduce la funcionalidad del video la nota será 0.
