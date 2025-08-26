@@ -5,11 +5,6 @@ unitId: unit4
 
 import { Aside } from '@astrojs/starlight/components';
 
-
-<Aside type="danger" title="NO INICIAR A TRABAJAR">
-Unidad en construcción. Aún no inicies a trabajar en ella.
-</Aside>
-
 <Aside type="danger">
 NO USES IA PARA REALIZAR LAS ACTIVIDADES DE ESTA UNIDAD  
 
@@ -984,14 +979,14 @@ function draw() {
 }
 
 function keyPressed() {
-  if (keyCode === UP_ARROW) lineModuleSize += 5;
-  if (keyCode === DOWN_ARROW) lineModuleSize -= 5;
-  if (keyCode === LEFT_ARROW) angleSpeed -= 0.5;
-  if (keyCode === RIGHT_ARROW) angleSpeed += 0.5;
+  if (keyCode == UP_ARROW) lineModuleSize += 5;
+  if (keyCode == DOWN_ARROW) lineModuleSize -= 5;
+  if (keyCode == LEFT_ARROW) angleSpeed -= 0.5;
+  if (keyCode == RIGHT_ARROW) angleSpeed += 0.5;
 }
 
 function keyReleased() {
-  if (key === "s" || key === "S") {
+  if (key == "s" || key == "S") {
     let ts =
       year() +
       nf(month(), 2) +
@@ -1002,26 +997,26 @@ function keyReleased() {
       nf(second(), 2);
     saveCanvas(ts, "png");
   }
-  if (keyCode === DELETE || keyCode === BACKSPACE) background(255);
+  if (keyCode == DELETE || keyCode == BACKSPACE) background(255);
 
   // reverse direction and mirror angle
-  if (key === "d" || key === "D") {
+  if (key == "d" || key == "D") {
     angle += 180;
     angleSpeed *= -1;
   }
 
   // default colors from 1 to 4
-  if (key === "1") c = color(181, 157, 0);
-  if (key === "2") c = color(0, 130, 164);
-  if (key === "3") c = color(87, 35, 129);
-  if (key === "4") c = color(197, 0, 123);
+  if (key == "1") c = color(181, 157, 0);
+  if (key == "2") c = color(0, 130, 164);
+  if (key == "3") c = color(87, 35, 129);
+  if (key == "4") c = color(197, 0, 123);
 
   // load svg for line module
-  if (key === "5") lineModuleIndex = 0;
-  if (key === "6") lineModuleIndex = 1;
-  if (key === "7") lineModuleIndex = 2;
-  if (key === "8") lineModuleIndex = 3;
-  if (key === "9") lineModuleIndex = 4;
+  if (key == "5") lineModuleIndex = 0;
+  if (key == "6") lineModuleIndex = 1;
+  if (key == "7") lineModuleIndex = 2;
+  if (key == "8") lineModuleIndex = 3;
+  if (key == "9") lineModuleIndex = 4;
 }
 
 ```
