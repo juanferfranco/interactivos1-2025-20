@@ -1066,6 +1066,70 @@ while True:
     sleep(100) # Envia datos a 10 Hz
 ```
 
+<details>
+<summary>¿Qué puedo hacer para trabajar en mi casa si no tengo un micro:bit?</summary>
+
+Si no tienes un micro:bit puedes "emular" los datos que produce el micro:bit 
+utilizando un emulador y conectando tanto la aplicación p5.js como el 
+emulador a un pareja de puertos seriales virtuales.
+
+La idea es esta:
+
+![Virtual COM](../../../assets/virtualCom.webp)
+
+Para lograr esto necesitas lo siguiente:
+
+1. Instalar [este](https://com0com.sourceforge.net/) driver de 
+virtual serial port.
+2. Configurar los puertos con el programa Setup for com0com que 
+viene con la instalación.
+3. Instalar [node.js](https://nodejs.org/en).
+4. La aplicación que emulará al micro:bit. Te propongo 
+[esta](https://github.com/juanferfranco/serialEmulator). Ten cuidado 
+al momento de seleccionar el puerto serial virtual que usarás para 
+emular al micro:bit. Debe ser uno de los puertos seriales virtuales 
+configurados en el paso 2.
+5. Necesitas realizar una modificación a la manera como te conectas 
+desde p5.js al micro:bit así:
+
+``` js 
+function setup() {
+  port = createSerial();
+  connectBtn = createButton("Connect to micro:bit");
+  connectBtn.position(0, 0);
+  connectBtn.mousePressed(() => connectBtnClick('emu'));
+}
+
+function connectBtnClick(mode = 'emu') {
+  if (!port.opened()) {
+    if (mode === 'micro') {
+      port.open('MicroPython', 115200);
+    } else {
+      port.open(115200);
+    }
+    connectionInitialized = false;
+  } else {
+    port.close();
+  }
+}
+```
+El código anterior te permitirá seleccionar alguno de los puertos 
+seriales que tengas disponibles en tu sistema, incluyendo el 
+virtual serial port y el que aparece cuando se conecta un micro:bit.
+
+Ten en cuenta que debes seleccionar un puerto serial virtual diferente 
+al seleccionado para el emulador, pero que esté conectado a este. Eso 
+lo configuras con la aplicación Setup for com0com.
+
+Este diagrama muestra cómo se relacionarían algunos de los 
+programas anteriores:
+
+![Diagrama completo](../../../assets/virtualComParts.webp)
+
+
+</details>
+
+
 ## Evidencias 🗂️
 
 <Aside type="note" title="RUBRICA!">
