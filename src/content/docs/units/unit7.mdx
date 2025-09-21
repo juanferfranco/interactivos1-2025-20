@@ -3,19 +3,246 @@ title: Unidad 7
 unitId: unit7
 ---
 
-import ActivityPlaceholder from '../../../components/ActivityPlaceholder.astro';
 import { Aside } from '@astrojs/starlight/components';
-
-<Aside type="danger">Esta unidad está en construcción y todo lo que veas 
-aquí puede cambiar. NO INICIES A TRABAJAR AÚN</Aside>
 
 ## Introducción 📜
 
+En unidades anteriores, exploraste cómo conectar un dispositivo físico (micro:bit) a 
+una aplicación web usando Web Serial y también cómo conectar dos ventanas del navegador 
+en tu propio computador usando Node.js y Socket.IO.
+
+Ahora, daremos un paso más allá en la conectividad. Usaremos un dispositivo que llevas 
+contigo a todas partes, tu **teléfono celular**, como un dispositivo de entrada. 
+Capturaremos los eventos táctiles (*touch*) en una página web simple en tu celular y 
+enviaremos esa información en tiempo real a una aplicación p5.js, que se ejecutará 
+en el navegador de tu **computador**.
+
+Para lograr este "puente" entre dispositivos, utilizaremos Node.js y Socket.IO como 
+servidor intermediario, similar a la unidad anterior. Sin embargo, como tu celular 
+y tu computador no estarán (inicialmente) en la misma red local o no podrán "verse" 
+directamente, introduciremos una herramienta poderosa: **Microsoft Dev Tunnels** 
+(accesible a través de VS Code) para exponer de forma segura nuestro servidor 
+local a Internet.
 
 ## Set: ¿Qué aprenderás en esta unidad? 💡
 
+Al finalizar esta unidad, serás capaz de:
+
+- Configurar y utilizar **VS Code Port Forwarding (Dev Tunnels)** para exponer un servidor 
+Node.js local a Internet de forma segura.
+- Implementar una aplicación cliente en un dispositivo móvil (teléfono) que capture 
+**eventos táctiles** y los envíe a un servidor Node.js usando Socket.IO.
+- Implementar una aplicación cliente en un computador de escritorio que reciba datos 
+en tiempo real desde el servidor Node.js (originados en el móvil) y los utilice para 
+controlar una visualización p5.js.
+- Utilizar **JSON** para estructurar y transmitir datos complejos 
+(coordenadas táctiles) entre cliente y servidor.
+- Analizar y comprender el flujo completo de datos: Móvil (Touch) -> Servidor Node.js (vía Dev Tunnel) -> Escritorio (Visualización).
+- Crear tu propia aplicación interactiva que conecte un dispositivo móvil y un computador 
+usando las tecnologías aprendidas.
+
+### Actividad 01
+
+:::note[🎯 Enunciado]
+Vamos a configurar y ejecutar el caso de estudio base. El objetivo es lograr que la interacción táctil en una página web 
+abierta en tu **celular** controle en tiempo real un círculo en una página web abierta en el navegador de tu **computador**. 
+Usaremos Node.js como intermediario y VS Code Dev Tunnels para hacer posible la conexión entre ambas aplicaciones.
+:::
+
+:::danger[⚠️ Advertencia]
+En la unidad anterior usaste node.js para realizar el puente entre dos aplicaciones. En esta unidad 
+usaremos el mismo concepto, pero ahora necesitas una herramienta adicional: **Dev Tunnels**. ¿Por qué?
+Al terminar esta unidad verifica que tienes clara la respuesta a esta pregunta.
+:::
+
+:::tip[Recursos]
+- Código fuente del caso de estudio (`server.js`, carpeta `public` con subcarpetas `desktop` y `mobile`). El 
+caso de estudio lo puedes encontrar [aquí](https://github.com/juanferfranco/sfiSocketioDesktopMobile).
+- [Node.js](https://nodejs.org/en) instalado en tu computador.
+- [Visual Studio Code](https://code.visualstudio.com/) instalado en tu computador.
+- Tu teléfono celular con un navegador web moderno (Chrome, Safari, Firefox).
+- Conexión a internet tanto en el computador como en el celular.
+:::
+
+👣 **Pasos**:
+
+1.  **Prepara el proyecto:**
+    *   Descarga o clona el código del caso de estudio en tu computador. El código está en 
+    [este](https://github.com/juanferfranco/sfiSocketioDesktopMobile) repositorio.
+    *   Abre una terminal en la carpeta raíz del proyecto.
+    *   Ejecuta `npm install` para instalar las dependencias (`express`, `socket.io`). Haz esto solo la primera vez.
+2.  **Inicia el servidor local:**
+    *   Abre la carpeta del proyecto en VS Code.
+    *   Abre una terminal integrada en VS Code (View > Terminal).
+    *   En la terminal, ejecuta `npm start`.
+    *   Deberías ver el mensaje: `Server is listening on http://localhost:3000`. ¡Pero aún no accedas a esa URL!
+3.  **Expón el servidor con Dev Tunnels:**
+    *   Selecciona PORTS. Click en Forward a Port (Dev Tunnels).
+    *   En el número de puerto, selecciona `3000` (¿Por qué este?)
+    *   En la columna Visibility, selecciona `Public`. Esto permitirá que el túnel sea accesible desde cualquier lugar.
+    *   Copia la URL que aparece en la columna Forwarded Address. Esta URL es la que usarás para acceder al servidor 
+        desde tu celular.
+    *   Envía esta URL a tu celular. Se verá algo como `https://TU-TENDRAS-UNA-DIFERNTE.use2.devtunnels.ms/`.
+4.  **Accede a las aplicaciones:**
+    *   **En tu Computador:** abre un navegador web y ve a la URL: `http://localhost:3000/desktop/`. Deberías ver el canvas de p5.js con un círculo rojo.
+    *   **En tu Celular:** abre un navegador web y ve a la URL que enviaste pero añadiendo /mobile/ al final. Algo así como esto:  `https://TU-TENDRAS-UNA-DIFERNTE.use2.devtunnels.ms//mobile/` (Asegúrate de añadir `/mobile/` al final). Deberías ver el canvas de p5.js con el texto "Touch to move the circle".
+6.  **Prueba la interacción:**
+    *   Toca y mueve el dedo sobre la pantalla de tu **celular**.
+    *   Observa el navegador de tu **computador**. El círculo rojo debería moverse siguiendo tu dedo.
+    *   Observa la terminal donde corre `server.js`. Deberías ver mensajes "New client connected", "Received message => ...", y "Client disconnected" cuando cierras las pestañas.
+7.  **Cierra el Port**: una vez termines de hacer las pruebas **NO OLVIDES CERRAR** el puerto.
+8.  **¿Si cerraste el puerto?**
+
+:::note[🧐🧪✍️ Reporta en tu bitácora]
+- ¿Qué URL de Dev Tunnels obtuviste? ¿Por qué crees que necesitamos usar esta URL en lugar de `http://localhost:3000` o 
+la IP local de tu computador para que el celular se conecte?
+- Describe brevemente qué hace `npm install` y `npm start`.
+- ¿Qué mensajes observaste en la terminal del servidor al conectar el cliente de escritorio y el cliente móvil? ¿Eran diferentes los mensajes o identificadores?
+- Describe el comportamiento observado: ¿Funcionó la interacción? ¿Hubo algún retraso (latencia)?
+:::
+
 ## Seek: Investigación 🔎
+
+<Aside type="note" title="Caso de estudio">
+Ahora que has configurado y probado el sistema base, es hora de sumergirnos en los 
+detalles. Desglosaremos los componentes clave: los conceptos nuevos necesarios, el servidor 
+Node.js que actúa como puente, el cliente móvil que captura el *touch*, y el cliente de 
+escritorio que recibe y visualiza.
+</Aside>
+
+### Actividad 02
+
+:::note[🎯 Enunciado]
+Antes de analizar el código línea por línea, vamos a clarificar los conceptos *nuevos* o *críticos* 
+específicos de esta unidad que permiten la comunicación entre tu celular y tu computador a través de Internet.
+:::
+
+:::tip[Recursos]
+- Documentación de [VS Code Dev Tunnels](https://code.visualstudio.com/docs/debugtest/port-forwarding) (para profundizar).
+- Referencia de p5.js sobre eventos táctiles: [`touchMoved()`](https://p5js.org/reference/p5/touchMoved/).
+- Tu código del caso de estudio.
+:::
+
+👣 **Pasos**: (Explicación conceptual)
+
+1.  **El problema de la conexión directa:**
+    *   Cuando ejecutas `npm start`, el servidor escucha en `localhost:3000`. `localhost` (o `127.0.0.1`) es una dirección especial que *siempre* se refiere a tu propia máquina.
+    *   Si intentaras acceder a `http://localhost:3000` desde tu celular, este buscaría un servidor *en el propio celular*, no en tu computador.
+    *   Podrías usar la IP local de tu computador (ej. `192.168.1.X`), pero esto solo funciona si ambos dispositivos están en la *misma red Wi-Fi* y no hay firewalls bloqueando. No funcionaría si tu celular usa datos móviles o está en otra red.
+    *   **Necesitamos una dirección pública y accesible desde cualquier lugar.**
+
+2.  **La solución: VS Code Dev Tunnels (Port Forwarding):**
+    *   Dev Tunnels actúa como un **intermediario seguro**. Crea un túnel desde una URL pública en Internet (la que obtuviste, como `https://TU-TENDRAS-UNA-DIFERNTE.use2.devtunnels.ms/`) hasta el puerto `3000` de tu `localhost`.
+    *   Cuando tu celular (o cualquier cliente en Internet) se conecta a la URL pública de Dev Tunnels, el servicio de Dev Tunnels reenvía esa conexión de forma segura a través del túnel hasta tu servidor Node.js local.
+    *   Del mismo modo, las respuestas de tu servidor local viajan de vuelta por el túnel hasta el servicio Dev Tunnels, que las entrega al cliente (celular/escritorio).
+    *   **Analogía:** Es como tener un número de teléfono público (la URL de Dev Tunnels) que redirige las llamadas a tu teléfono privado en casa (`localhost:3000`), sin exponer directamente tu número privado.
+
+3.  **Capturando la entrada: eventos táctiles en p5.js (`mobile/sketch.js`):**
+    *   p5.js ofrece funciones específicas que se ejecutan automáticamente cuando ocurren eventos táctiles en un dispositivo móvil (o simulación en escritorio).
+    *   **`touchMoved()`:** es la función clave aquí. Se llama *continuamente* mientras el usuario mantiene un dedo presionado y lo mueve sobre el canvas. Dentro de esta función, `mouseX` y `mouseY` contienen las coordenadas actuales del toque.
+    *   **Optimización (`threshold`):** el código no envía un mensaje en *cada* pequeño movimiento detectado por `touchMoved()`. Comprueba si el movimiento desde la última vez que se envió (`lastTouchX`, `lastTouchY`) supera un 
+    umbral (`threshold`). Esto evita inundar la red con mensajes si el dedo tiembla o se mueve mínimamente, enviando solo cambios significativos.
+    *   Otras funciones útiles (no usadas en este caso base, pero relevantes):
+        *   `touchStarted()`: se llama una vez cuando el usuario toca la pantalla por primera vez.
+        *   `touchEnded()`: se llama una vez cuando el usuario levanta el dedo de la pantalla.
+
+:::note[🧐🧪✍️ Reporta en tu bitácora]
+- Explica con tus propias palabras: ¿Por qué es necesario Dev Tunnels en este escenario y cómo funciona conceptualmente?
+- Describe la función de `touchMoved()` y por qué se usa la variable `threshold` en el cliente móvil.
+- Compara brevemente Dev Tunnels con simplemente usar la IP local. ¿Cuáles son las ventajas y desventajas de cada uno?
+- Coloca en tu bitácora capturas de pantalla del sistema completo funcionando. Esto lo puedes hacer abriendo tanto el mobile 
+como el desktop en tu computador y tomando una captura de pantalla de todos los involucrados (celular, computador y terminal).
+:::
+
+### Actividad 03
+
+:::note[🎯 Enunciado]
+Vamos a analizar el código `server.js`. Este script actúa como un repetidor simple 
+pero esencial, recibiendo mensajes del cliente móvil y retransmitiéndolos al cliente de escritorio.
+:::
+
+
+:::note[🧐🧪✍️ Reporta en tu bitácora]
+
+- ¿Cuál es la función principal de express.static('public') en este servidor? ¿Cómo se compara con el uso de app.get('/ruta', ...) del servidor de la Unidad 6?
+
+- Explica detalladamente el flujo de un mensaje táctil: ¿Qué evento lo envía desde el móvil? ¿Qué evento lo recibe el servidor? ¿Qué hace el servidor con él? 
+¿Qué evento lo envía el servidor al escritorio? ¿Por qué se usa socket.broadcast.emit en lugar de io.emit o socket.emit en este caso?
+
+- Si conectaras dos computadores de escritorio y un móvil a este servidor, y movieras el dedo en el móvil, ¿Quién recibiría el mensaje retransmitido por el servidor? ¿Por qué?
+
+- ¿Qué información útil te proporcionan los mensajes console.log en el servidor durante la ejecución?
+:::
+
+### Actividad 04
+
+:::note[🎯 Enunciado]
+Ahora analizaremos el código que corre en los navegadores: el cliente móvil que captura el toque (`mobile/sketch.js`) y el cliente de escritorio que recibe la información 
+y dibuja (`desktop/sketch.js`). Veremos cómo usan Socket.IO para comunicarse con el servidor.
+:::
+
+
+:::note[🧐🧪✍️ Reporta en tu bitácora]
+Realiza un diagrama donde muestres el flujo completo de datos y eventos entre los tres componentes: móvil, servidor y escritorio. Puedes ilustrar 
+con un ejemplo de coordenadas táctiles (x, y) y cómo viajan a través del sistema.
+:::
 
 ## Apply: Aplicación 🛠
 
+<Aside type="note" title=" ">
+Has analizado cómo el móvil puede controlar el escritorio a través de un servidor 
+y Dev Tunnels. Ahora es tu turno de ser creativo. Tomarás la base tecnológica y crearás 
+una aplicación interactiva diferente, manteniendo la esencia: el *touch* del móvil como input 
+principal.
+</Aside>
+
+### Actividad 05
+
+#### Aplica lo aprendido
+
+:::note[🎯 Enunciado]
+Ahora que comprendes cómo funciona el sistema base, es tu turno de **CREAR**
+:::
+
+:::note[🧐🧪✍️ Reporta en tu bitácora]
+1. Diseña una aplicación interactiva que use el *touch* del móvil para controlar una visuales de tema musical 
+de tu elección. Las visuales correrán en una aplicación de escritorio (desktop). Recuerda que ambas aplicaciones 
+las construirás usando p5.js y utilizando el servidor Node.js como puente.
+2. Implementa tu diseño. Puedes usar IA generativa para ayudarte a escribir el código, pero primero debes hacer 
+el diseño de lo que quieres.
+3. Incluye todos los códigos (servidor y clientes) en tu bitácora.
+:::
+
+## Evidencias 🗂️
+
+<Aside type="note" title="RUBRICA!">
+* Recuerda que la bitácora se cierra 10 minutos antes de la segunda sesión de la semana 2 de la unidad. 
+* Si no realizas la autoevaluación tu nota será 0.
+* Si una actividad no está COMPLETA debes multiplicar la nota de esa actividad por el porcentaje 
+de avance que tengas.
+* Para la actividad de aplicación podrás usar IA generativa, PERO SOLO para generar el código Y CON LA 
+condición de primero realizar el **DISEÑO** de lo que quieres.
+
+**Rúbrica de evaluación del proceso**
+
+5: realicé las 5 actividades completas y la autoevaluación.  
+3: realicé 4 actividades completas y la autoevaluación.  
+2: realicé 3 actividades completas y la autoevaluación.  
+1: realicé 2 actividades completas y la autoevaluación.  
+0.5: realicé 1 actividad completa y la autoevaluación.  
+0: no realicé ninguna actividad o no realicé la autoevaluación.  
+</Aside>
+
+<Aside type="danger" title="EVIDENCIAS EN BITÁCORA">
+
+1. Realiza las actividades propuestas en esta unidad y documenta todo el proceso en tu bitácora.  
+2. Realiza la autoevaluación indicando:
+    * Tu nota propuesta.
+    * La defensa de esa nota para cada actividad. 
+</Aside>
+
 ## Reflect: Consolidación y metacognición 🤔
+
+Para esta fase de pediré que hagas un diagrama que explique cómo funciona tu aplicación y 
+cómo se comunican los diferentes componentes.
+
